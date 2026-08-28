@@ -19,6 +19,8 @@
   <img alt="Local first" src="https://img.shields.io/badge/Privacy-Local--first-00bcd4?style=flat-square">
 </p>
 
+This directory is the FhniX application (`fhnix` 0.5.0). It lives at `phishlens/` inside the [FhniX repository](https://github.com/dRafaleD/FhniX). The repository root also contains a separate Rust desktop app, Safe Malware Behavior Simulator (Cargo package `safe-malware-simulator`), which is not part of this Python package.
+
 FhniX helps analysts, blue teams, students, and everyday users inspect suspicious emails without opening links or executing attachments. It combines transparent detection rules with an optional locally trained Naive Bayes model and explains the signals behind every result.
 
 > [!IMPORTANT]
@@ -73,7 +75,7 @@ FhniX never visits extracted links or runs attachment content. Mailbox mode is o
 
 ```powershell
 git clone https://github.com/dRafaleD/FhniX.git
-cd FhniX
+cd FhniX/phishlens
 py -m pip install -e .
 fhnix --version
 ```
@@ -198,7 +200,7 @@ The rule engine produces an explainable heuristic score from 0 to 100. Without a
 
 ## Development
 
-Run the test suite from the repository root:
+Run the test suite from this directory (`phishlens/`):
 
 ```powershell
 $env:PYTHONPATH = "src"

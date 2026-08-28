@@ -1,5 +1,7 @@
 # Security Policy
 
+This file covers the FhniX Python application in `phishlens/`. The GitHub repository also contains a separate Rust simulator at the repo root; see the root [SECURITY.md](../SECURITY.md) for that project and for repository-wide reporting.
+
 ## Supported Version
 
 FhniX is currently in alpha. Security fixes are applied to the latest version on the `main` branch.
