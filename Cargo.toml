@@ -2,6 +2,9 @@
 name = "safe-malware-simulator"
 version = "0.1.0"
 edition = "2024"
+description = "Defensive educational desktop app that shows synthetic malware telemetry only. Not the FhniX phishing-triage tool."
+repository = "https://github.com/dRafaleD/FhniX"
+license = "MIT"
 
 [dependencies]
 eframe = "0.33"
