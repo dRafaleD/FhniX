@@ -145,6 +145,14 @@ def render_batch_json(results: list[AnalysisResult], pretty: bool = True) -> str
     return json.dumps(payload, indent=2 if pretty else None, ensure_ascii=False)
 
 
+def spreadsheet_literal(value: str) -> str:
+    """Keep untrusted text literal in spreadsheet CSV consumers."""
+    probe = re.sub(r"^[\s\x00-\x1f\ufeff]+", "", value)
+    if probe.startswith(("=", "+", "-", "@")) or value.startswith(("\t", "\r", "\n")):
+        return "'" + value
+    return value
+
+
 def render_batch_csv(results: list[AnalysisResult]) -> str:
     """Return a spreadsheet-friendly, one-row-per-message folder scan report."""
     output = StringIO(newline="")
@@ -163,14 +171,14 @@ def render_batch_csv(results: list[AnalysisResult]) -> str:
     for result in sorted(results, key=lambda item: (-item.score, item.source.casefold())):
         writer.writerow(
             {
-                "verdict": result.verdict,
+                "verdict": spreadsheet_literal(result.verdict),
                 "score": result.score,
                 "heuristic_score": result.heuristic_score,
-                "subject": result.headers["subject"] or "",
-                "from": result.headers["from"] or "",
-                "source": result.source,
+                "subject": spreadsheet_literal(result.headers["subject"] or ""),
+                "from": spreadsheet_literal(result.headers["from"] or ""),
+                "source": spreadsheet_literal(result.source),
                 "finding_count": len(result.findings),
-                "findings": "; ".join(finding.title for finding in result.findings),
+                "findings": spreadsheet_literal("; ".join(finding.title for finding in result.findings)),
             }
         )
     return output.getvalue()
